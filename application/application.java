@@ -1,7 +1,9 @@
 package Bank.application;
 
 import Bank.model.entities.Account;
+import ExceptionSoluxan.model.exeception.DomainException;
 
+import java.text.ParseException;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -26,14 +28,12 @@ public class application {
         System.out.print("Informe uma quantidade para sacar: ");
         double amount = sc.nextDouble();
 
-        if (amount > withdrawLimit) {
-            System.out.println("Error de saque: A quantia excede o limite de saque");
-        } else if (amount > acc.getBalance()) {
-            System.out.println("Error de saque: Saldo insulficiente");
-        } else {
+        try {
             acc.withDraw(amount);
             System.out.printf("Novo saldo: %.2f%n", acc.getBalance());
-
+        }
+        catch (DomainException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

@@ -40,5 +40,14 @@ public class Account {
     public void withDraw(Double amount){
         this.balance -= amount;
     }
+    public void validateWithDraw(double amount){
+        if (amount > getWithDrawLimit()) {
+           throw new DomainException("Error de saque: A quantia excede o limite de saque");
+        }
+        if (amount > getBalance()) {
+            throw new DomainException("Error de saque: Saldo insulficiente");
+        }
+
+    }
 
 }
